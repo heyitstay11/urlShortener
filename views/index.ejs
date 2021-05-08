@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/styles/style.css">
+    <title>URL Shortner</title>
+</head>
+<body>
+    <main>
+        <div class="min-h-screen bg-gray-100 py-2 px-6 flex text-gray-800 antialiased flex-col justify-center sm:py-12">
+            <h1 class="text-4xl text-indigo-800 font-medium text-center underline">URL Shortner</h1>
+            <div class="bg-purple-200 mx-8 my-4 py-4 px-6 sm:max-w-screen-sm sm:mx-auto" >
+                <form action="/shortUrl" method="POST" class="bg-indigo-300  px-2 py-6">
+                    <label class="block text-lg font-semibold">Label</label>
+                    <input type="text" name="label" required placeholder="Label: Bank of Banker" class="border w-full h-7 px-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md">
+                    <label class="block text-lg font-semibold">URL</label>
+                    <input type="url" name="url" required placeholder="Url: https://bankofbankers.com" class="border w-full h-7 px-3 mt-2 hover:outline-none focus:outline-none focus:ring-1 focus:ring-indigo-600 rounded-md">
+                    <button type="submit" class="mt-4 bg-indigo-500 text-white py-2 rounded-md px-6 hover:bg-indigo-600 ">Submit</button>
+                </form>
+            </div>
+            <div class="mx-auto my-8">
+                <h1 class="text-center text-2xl underline mb-2 ">Click on Label to copy short link</h1>
+                <table class="table-auto bg-indigo-100 sm:w-full sm:mx-auto">
+                    <thead>
+                        <tr>
+                            <th class="border  border-indigo-600 border-8 px-3 py-1">Label</th>
+                            <th class="border  border-indigo-600 border-8 px-3 py-1" >Full Link</th>
+                            <th class="border  border-indigo-600 border-8 px-3 py-1" >Short Link</th>
+                            <th class="border  border-indigo-600 border-8 px-3 py-1" >Visits</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+                        <% shortUrls.forEach((shortUrl) => { %>
+                            <tr>
+                                <td class="border  border-indigo-600 border-6 text-center px-3 text-lg font-bold py-1 cursor-pointer label" ><%= shortUrl.label %></td>
+                                <td class="border  border-indigo-600 border-6 text-center px-3 text-lg py-1" ><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
+                                <td class="border  border-indigo-600 border-6 text-center px-3 text-lg py-1" ><a class="short" href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
+                                <td class="border  border-indigo-600 border-6 text-center px-3 text-lg py-1" ><%= shortUrl.clicks %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    const labels = document.querySelectorAll('.label');
+    const baseUrl = window.location.href;
+    labels.forEach((label) => {
+        let short = label.parentElement.querySelector('.short').textContent;
+        let url = baseUrl + short;
+        label.addEventListener('click', () => {
+            navigator.clipboard.writeText(url);
+        })
+    })
+</script>
+</html>

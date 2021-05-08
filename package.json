@@ -1,0 +1,31 @@
+{
+  "name": "url-shortner-tw",
+  "version": "1.0.0",
+  "description": "URL Shortner",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "stat": "browser-sync start server --proxy localhost:5000 -- files=**/* --ignore=node_modules --reload-delay 10000 --no-ui --no-inject-changes",
+    "tailwind:css": "postcss public/styles/tailwind.css -o public/styles/style.css",
+    "prod": "NODE_ENV=production postcss public/styles/tailwind.css -o public/styles/style.css"
+  },
+  "author": "Tayyab",
+  "license": "ISC",
+  "dependencies": {
+    "browser-sync": "^2.26.14",
+    "dotenv": "^9.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.7",
+    "nanoid": "^3.1.22",
+    "nodemon": "^2.0.7",
+    "postcss-cli": "^8.3.1",
+    "win-node-env": "^0.4.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.14",
+    "tailwindcss": "^2.1.2"
+  }
+}
